@@ -3,10 +3,12 @@ package ivan.silvestre.personagem.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import ivan.silvestre.personagem.domain.Personagem;
 import ivan.silvestre.personagem.repositories.PersonagemRepository;
+import ivan.silvestre.personagem.services.exceptions.DataIntegrityException;
 import ivan.silvestre.personagem.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -33,7 +35,14 @@ public class PersonagemService {
 	}
 
 	public void delete(Integer id) {
-		repo.deleteById(id);
+		find(id);
+
+		try {
+
+			repo.deleteById(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir um personagem");
+		}
 	}
 
 }
