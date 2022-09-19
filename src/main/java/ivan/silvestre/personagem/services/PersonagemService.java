@@ -26,4 +26,10 @@ public class PersonagemService {
 		return repo.save(obj);
 	}
 
+	public Personagem update(Personagem obj) {
+		find(obj.getId());
+		
+		return repo.save(obj);
+	}
+
 }
