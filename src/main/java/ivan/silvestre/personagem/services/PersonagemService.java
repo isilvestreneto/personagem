@@ -21,4 +21,9 @@ public class PersonagemService {
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Personagem.class.getName()));
 	}
 
+	public Personagem insert(Personagem obj) {
+		obj.setId(null);
+		return repo.save(obj);
+	}
+
 }
